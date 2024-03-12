@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title>Update information</title>
+    <link rel="stylesheet" href="/css/makeAppointment.css">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body>
+  <div class="container">
+
+        <div class="title"> 
+          Update your'information
+        </div>
+
+    <div class="content">
+      <form action="/updateInfo" method="post">
+        <div class="user-details">
+          <div class="input-box">
+            <span class="details">Full Name</span>
+            <input type="text" name="Name" placeholder="Enter your name" required>
+          </div>
+          <div class="input-box">
+            <span class="details">Address</span>
+            <input type="text" name="Address" placeholder="Enter your address" required>
+          </div>
+          <div class="input-box">
+            <span class="details">DOB</span>
+            <input type="date" name="DOB" required>
+          </div>
+          <div class="input-box">
+            <span class="details">Phone Number</span>
+            <input type="text" name="Phone" placeholder="Enter your number" required>
+          </div>
+          <div class="input-box">
+            <span class="details">Health Insurance</span>
+            <input type="text" name="Health_Insurance" placeholder="Enter your number" required>
+          </div>
+        </div>
+        <div class="gender-details">
+          <input type="radio" name="man" id="dot-1">
+          <input type="radio" name="women" id="dot-2">
+          <input type="radio" name="gender" id="dot-3">
+          <span class="gender-title">Gender</span>
+          <div class="category">
+            <label for="dot-1">
+            <span class="dot one"></span>
+            <span class="gender">Male</span>
+          </label>
+          <label for="dot-2">
+            <span class="dot two"></span>
+            <span class="gender">Female</span>
+          </label>
+          </div>
+        </div>
+        <div class="button">
+          <input type="submit" value="Save">
+        </div>
+      </form>
+    </div>
+  </div>
+
+</body>
+</html>

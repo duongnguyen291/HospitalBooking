@@ -1,0 +1,123 @@
+.video{
+    margin-top:20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 15px;
+}
+
+.video-div{
+    cursor: pointer;
+    color: var(--dark);
+    background: var(--light);
+    border-radius: 10px;
+    padding:5px;
+}
+
+.videoandtime{
+    position: relative;
+}
+.video-div:hover{
+    box-shadow: 0 0 3px 3px #888888;
+    cursor:pointer;
+    border-radius: 10px;
+}
+.video-description{
+    display: flex;
+    flex-direction: column;
+}
+.video-description-child{
+display:grid;
+    grid-template-columns: 50px 1fr;
+}
+.video-title::before{
+    color: white;
+}
+.video-time{
+    position: absolute;
+    background-color: black;
+    font-family: Arial;
+    font-size:13px;
+    color:white;
+    right:10px;
+    bottom:10px;
+}
+
+.thumnails{
+    width:100%;
+    border-radius:10px;
+}
+.logo-channel{
+    width: 30px;
+    height: 30px;
+    border:1px solid black;
+    border-radius: 50%;
+}
+/* .video-div{
+    margin-left: 2px;
+    margin-right: 2px;
+} */
+
+.video-title{
+    font-family: Arial;
+    font-size:15px;
+    /* width: 254px; */
+    font-weight: bold;
+    margin-bottom: 1px;
+    margin-top:1px;
+
+}
+.video-channel{
+    font-family: Arial;
+    font-size:13px;
+    margin-top: 3px;
+    margin-bottom: 1px;
+}
+.video-sub{
+    font-family: Arial;
+    font-size:12px;
+    margin-top: 3px;
+}
+.Doctors-Crud{
+    display: flex;
+}
+.video-crud{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    gap: 15px;
+}
+.video-crud-button{
+    border: 0px ;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 3px;
+    width: 80px;
+}
+.video-crud-button:hover{
+    box-shadow: 0 0 2px 2px gray;
+    transition: 0.3s;
+}
+.Doctors-Crud-list{
+    margin: 10px;
+    display: flex;
+    border: 0px solid gray;
+    padding: 7px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.Doctors-Crud-list:hover{
+    box-shadow: 0 0 2px 2px gray;
+    transition: 0.3s;
+}
+.doctor-details{
+    position: fixed;
+    background-color: gray;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    top:10vh;
+    left:20vh;
+    right: 20vh;
+    bottom: 10vh;
+    z-index: 10000;
+}

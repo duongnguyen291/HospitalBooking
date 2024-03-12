@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="/css/admin.css">
+  
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <title>Admin Medical Care</title>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <a href="#" class="logo">
+         <img src="/images/NewlogoV05.png" width="200" > 
+        </a>
+        <ul class="side-menu">
+            <li><a href="/adminDashboard"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
+            <li><a href="/adminDoctors"><iconify-icon icon="healthicons:doctor" width="25" height="25" style ='margin: 6px;'></iconify-icon> Doctors</a></li>
+            <li><a href="/adminPatient"><i class='bx bx-group'></i>Patients</a></li>
+            <li><a href="/adminAnalyst"><i class='bx bx-analyse'></i>Analytics</a></li>
+            <li class="active"><a href="/adminAppointment"><iconify-icon icon="teenyicons:appointments-solid" width="23" height="23" style ='margin: 8px;'></iconify-icon>Appointment</a></li>
+            <li><a href="/adminSettings"><i class='bx bx-cog'></i>Settings</a></li>
+        </ul>
+        <ul class="side-menu">
+            <li>
+                <a href="/logout" class="logout" >
+                    <i class='bx bx-log-out-circle'></i>
+                    Logout
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- End of Sidebar -->
+
+    <!-- Main Content -->
+    <div class="content">
+        <!-- Navbar -->
+        <nav>
+            <i class='bx bx-menu'></i>
+            <form action="#">
+                <div class="form-input">
+                    <input type="search" placeholder="Search...">
+                    <button class="search-btn" type="submit"><i class='bx bx-search'></i></button>
+                </div>
+            </form>
+            <input type="checkbox" id="theme-toggle" hidden>
+            <label for="theme-toggle" class="theme-toggle"></label>
+            <a href="#" class="notif">
+                <i class='bx bx-bell'></i>
+                <span class="count">12</span>
+            </a>
+            <a href="#" class="profile">
+                <img src="images/ava.jpg">
+            </a>
+        </nav>
+
+        <!-- End of Navbar -->
+
+        <main>
+            <div class="header">
+                <div class="left">
+                    <h1>Appointment management</h1>
+                    <ul class="breadcrumb">
+                        <li>
+                            <a href="#">
+                                Appointment
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Insights -->
+            <ul class="insights">
+                <li>
+                    <!-- <i class='bx bx-calendar-check'></i> -->
+                    <iconify-icon icon="healthicons:doctor" class='bx' width = '50' height = '50'></iconify-icon>
+                    <span class="info">
+                        <h3>
+                            <%- JSON.stringify(staffCount) %>
+                        </h3>
+                        <p>Doctors</p>
+                    </span>
+                </li>
+                <li>
+                    <iconify-icon icon="guidance:in-patient" width="50" height="50"  class='bx' ></iconify-icon>
+                    <span class="info">
+                        <h3>
+                            <%- JSON.stringify(patientCount) %>
+                        </h3>
+                        <p>Patients</p>
+                    </span>
+                </li>
+                <li>
+                    <iconify-icon icon="maki:doctor" width="50" height="50" class ='bx'></iconify-icon>
+                    <span class="info">
+                        <h3>
+                            <%- JSON.stringify(attend) %>
+                        </h3>
+                        <p>Attend</p>
+                    </span>
+                </li>
+                <li>
+                    <iconify-icon icon="tabler:heart-rate-monitor" width="50" height="50" class ='bx'></iconify-icon>
+                    <span class="info">
+                        <h3>
+                            <%- JSON.stringify(pendingAppointment) %>
+                        </h3>
+                        <p>Pending</p>
+                    </span>
+                </li>
+            </ul>
+            <!-- End of Insights -->
+
+            <div class="bottom-data">
+                <div class="orders">
+                    <div class="header" >
+                        <i class='bx bx-receipt'></i>
+                        <h3>Upcoming Appointments</h3>
+                        <i class='bx bx-filter'></i>
+                        <i class='bx bx-search'></i>
+                    </div>
+               
+                    <table >
+                        <thead>
+                            <tr>
+                                <th>Patients</th>
+                                <th>Doctors</th>
+                                <th>Service</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody >
+                            <% appointments.forEach(function(item) { %>
+                                <tr>
+                                    <td>
+                                        <img src="images/ava.jpg">
+                                        <p><%= item.Patient %></p>
+                                    </td>
+                                    <td><%= item.Staff %></td>
+                                    <td><%= item.Service %></td>
+                                    <td><%= item.Date %></td>
+                                    <td><%= item.Start_Hour %></td>
+                                    <td><span class="status <%= item.Status %>"><%= item.Status %></span></td>
+                                    <td class="action">
+                                        <% if(item.Status==="Pending") { %>
+                                            <form method="POST" action="/changeAppointmentStatus">
+                                                <input type="hidden" name="appointmentId" value="<%= item.Appointment_ID %>">
+                                                <input type="hidden" name="newStatus" value="Rejected">
+                                                <button type="submit" class="btnAction">Reject</button>
+                                            </form>
+                                            <form method="POST" action="/changeAppointmentStatus">
+                                                <input type="hidden" name="appointmentId" value="<%= item.Appointment_ID %>">
+                                                <input type="hidden" name="newStatus" value="Approved">
+                                                <button type="submit" class="btnAction approved">Approved</button>
+                                            </form>
+                                        <% } else if(item.Status==="Approved") { %>
+                                            <form method="POST" action="/changeAppointmentStatus">
+                                                <input type="hidden" name="appointmentId" value="<%= item.Appointment_ID %>">
+                                                <input type="hidden" name="newStatus" value="Completed">
+                                                <button type="submit" class="btnAction completed">Completed</button>
+                                            </form>
+                                        <% } %>
+                                    </td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="js/adminScript.js"></script>
+</body>
+</html>

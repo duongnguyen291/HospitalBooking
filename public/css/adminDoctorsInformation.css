@@ -1,0 +1,77 @@
+.doctors{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-flow: wrap;
+    height: auto;
+  }
+.doctors div{
+    margin: 15px;
+}
+.doctors-first, .doctors-second{
+  /* box-sizing: border-box; */
+  border: 1px solid rgba(128,128,128,0.4);
+  border-radius: 20px;
+  padding: 5px;
+  background-color: rgb(246, 246, 249);
+}
+
+.doctors-first-avatar{
+  display: flex;
+  justify-content: center; 
+}
+.doctors-first-details{
+  display: flex;
+  flex-direction: column;
+}
+.details-box{
+  display: flex;
+  flex-direction: column;
+  margin:3px;
+  height: 55px;
+  border-radius: 12px;
+  background-color: rgb(238, 238, 238);
+  
+}
+.doctors-name{
+  font-size:22px;
+  font-weight: bold;
+}
+.details-box p{
+
+  margin: 3px 10px 3px 10px;
+  padding:2px;
+  height: 15px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.details-heading{
+  font-size: 14px;
+  color:rgb(102, 105, 113);
+}
+.details-content{
+  color:black;
+  font-size:17px;
+}
+/* Thiết lập kích thước ban đầu cho màn hình lớn */
+@media screen and (min-width: 768px) {
+  .doctors-first {
+    flex: 1; 
+    max-width: 26%;
+  }
+
+  .doctors-second {
+    flex: 2; 
+    max-width: 70%;
+
+  }
+}
+
+/* Thiết lập kiểu hiển thị cho màn hình nhỏ */
+@media screen and (max-width: 768px) {
+  .doctors-first,
+  .doctors-second {
+    flex: 1; /* Hiển thị đơn hàng theo chiều dọc */
+    max-width: 100%;
+  }
+}
+

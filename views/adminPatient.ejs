@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="/css/adminDoctorsLabel.css">
+  
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <title>Admin Medical Care</title>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <a href="/landingPage" class="logo">
+         <img src="/images/NewlogoV05.png" width="200" > 
+        </a>
+        <ul class="side-menu">
+            <li><a href="/adminDashboard"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
+            <li><a href="/adminDoctors"><iconify-icon icon="healthicons:doctor" width="25" height="25" style ='margin: 6px;'></iconify-icon> Doctors</a></li>
+            <li class="active"><a href="/adminPatient"><i class='bx bx-group'></i>Patients</a></li>
+            <li><a href="/adminAnalyst"><i class='bx bx-analyse'></i>Analytics</a></li>
+            <li><a href="/adminAppointment"><iconify-icon icon="teenyicons:appointments-solid" width="23" height="23" style ='margin: 8px;'></iconify-icon>Appointment</a></li>
+            <li><a href="/adminSettings"><i class='bx bx-cog'></i>Settings</a></li>
+        </ul>
+        <ul class="side-menu">
+            <li>
+                <a href="/logout" class="logout">
+                    <i class='bx bx-log-out-circle'></i>
+                    Logout
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- End of Sidebar -->
+    
+
+
+    <!-- Main Content -->
+    <div class="content">
+        <!-- Navbar -->
+        <nav>
+            <i class='bx bx-menu'></i>
+            <form action="#">
+                <div class="form-input">
+                    <input type="search" placeholder="Search...">
+                    <button class="search-btn" type="submit"><i class='bx bx-search'></i></button>
+                </div>
+            </form>
+            <input type="checkbox" id="theme-toggle" hidden>
+            <label for="theme-toggle" class="theme-toggle"></label>
+            <a href="#" class="notif">
+                <i class='bx bx-bell'></i>
+                <span class="count">12</span>
+            </a>
+            <a href="#" class="profile">
+                <img src="images/ava.jpg">
+            </a>
+        </nav>
+
+        <!-- End of Navbar -->
+
+        <main>
+            <div class="header">
+                <div class="left">
+                    <h1>Patient management</h1>
+                    <ul class="breadcrumb">
+                        <li>
+                            <a href="#">
+                                Patient
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Insights -->
+            <ul class="insights">
+                <li>
+                    <!-- <i class='bx bx-calendar-check'></i> -->
+                    <iconify-icon icon="healthicons:doctor" class='bx' width = '50' height = '50'></iconify-icon>
+                    <span class="info">
+                        <h3>
+                            <%- JSON.stringify(staffCount) %>
+                        </h3>
+                        <p>Doctors</p>
+                    </span>
+                </li>
+                <li>
+                    <iconify-icon icon="guidance:in-patient" width="50" height="50"  class='bx' ></iconify-icon>
+                    <span class="info">
+                        <h3>
+                            <%- JSON.stringify(patientCount) %>
+                        </h3>
+                        <p>Patients</p>
+                    </span>
+                </li>
+                <li>
+                    <iconify-icon icon="maki:doctor" width="50" height="50" class ='bx'></iconify-icon>
+                    <span class="info">
+                        <h3>
+                            xxx
+                        </h3>
+                        <p>Attend</p>
+                    </span>
+                </li>
+                <li>
+                    <iconify-icon icon="tabler:heart-rate-monitor" width="50" height="50" class ='bx'></iconify-icon>
+                    <span class="info">
+                        <h3>
+                            xxx
+                        </h3>
+                        <p>Pending</p>
+                    </span>
+                </li>
+            </ul>
+            <!-- End of Insights -->
+
+            <!-- Youtube -->
+            
+            <div class="video" id = PatientInfo>
+                
+            </div>
+
+            <script class="Update Patient">
+                function updatePatientTemplate() {
+                    const container = document.getElementById('PatientInfo');
+                    container.innerHTML = ''; 
+                    var patients = <%- JSON.stringify(patients) %>;
+
+                    let patientTemplate = '';
+            
+                    // Ensure doctors is an array before attempting to iterate
+                    if (Array.isArray(patients)) {
+                        patients.forEach(patient => {
+                            patientTemplate += `
+                                <a href="/adminPatient/${patient.Patient_ID}">
+                                    <div class="video-div">
+                                        <div class="videoandtime">
+                                            <div class="video-video"><img class="thumnails" src="/images/huanhoahong.gif" ></div>
+                                        </div>
+                                        <div class="video-description">
+                                            <div class="video-description-child">
+                                        <div class="video-thumna ils">
+                                            <img class="logo-channel" src="/images/ava.jpg">
+                                        </div>
+                                    
+                                        <div class="video-info">
+                                            <p class="video-title">Name: ${patient.Name}</p>
+                                            <p class="video-sub">Phone: ${patient.Phone}</p>
+                                            <p class="video-sub">Patient ID: ${patient.Patient_ID}</p>
+                                        </div>
+                                    </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            `;
+                        });
+                    } else {
+                        console.error('Doctors data is not an array');
+                    }
+                    container.innerHTML = patientTemplate;
+                }
+                updatePatientTemplate();
+            </script>
+
+            <!-- End Youtube -->
+        </main>
+
+    </div>
+
+    <script src="js/adminScript.js"></script>
+</body>
+
+</html>

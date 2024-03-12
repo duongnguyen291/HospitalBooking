@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="/css/adminDoctorsLabel.css">
+  
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <title>Admin Medical Care</title>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <a href="/landingPage" class="logo">
+         <img src="/images/NewlogoV05.png" width="200" > 
+        </a>
+        <ul class="side-menu">
+            <li><a href="/adminDashboard"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
+            <li class="active"><a href="/adminDoctors"><iconify-icon icon="healthicons:doctor" width="25" height="25" style ='margin: 6px;'></iconify-icon> Doctors</a></li>
+            <li><a href="/adminPatient"><i class='bx bx-group'></i>Patients</a></li>
+            <li><a href="/adminAnalyst"><i class='bx bx-analyse'></i>Analytics</a></li>
+            <li><a href="/adminAppointment"><iconify-icon icon="teenyicons:appointments-solid" width="23" height="23" style ='margin: 8px;'></iconify-icon>Appointment</a></li>
+            <li><a href="/adminSettings"><i class='bx bx-cog'></i>Settings</a></li>
+        </ul>
+        <ul class="side-menu">
+            <li>
+                <a href="/logout" class="logout">
+                    <i class='bx bx-log-out-circle'></i>
+                    Logout
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- End of Sidebar -->
+    
+
+
+    <!-- Main Content -->
+    <div class="content">
+        <!-- Navbar -->
+        <nav>
+            <i class='bx bx-menu'></i>
+            <form action="#">
+                <div class="form-input">
+                    <input type="search" placeholder="Search...">
+                    <button class="search-btn" type="submit"><i class='bx bx-search'></i></button>
+                </div>
+            </form>
+            <input type="checkbox" id="theme-toggle" hidden>
+            <label for="theme-toggle" class="theme-toggle"></label>
+            <a href="#" class="notif">
+                <i class='bx bx-bell'></i>
+                <span class="count">12</span>
+            </a>
+            <a href="#" class="profile">
+                <img src="images/ava.jpg">
+            </a>
+        </nav>
+
+        <!-- End of Navbar -->
+
+        <main>
+            <div class="header">
+                <div class="left">
+                    <h1>Doctor management</h1>
+                    <ul class="breadcrumb">
+                        <li>
+                            <a href="#">
+                                Doctors
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Insights -->
+            <ul class="insights">
+                <li>
+                    <!-- <i class='bx bx-calendar-check'></i> -->
+                    <iconify-icon icon="healthicons:doctor" class='bx' width = '50' height = '50'></iconify-icon>
+                    <span class="info">
+                        <h3>
+                            <%- JSON.stringify(staffCount) %>
+                        </h3>
+                        <p>Doctors</p>
+                    </span>
+                </li>
+                <li>
+                    <iconify-icon icon="guidance:in-patient" width="50" height="50"  class='bx' ></iconify-icon>
+                    <span class="info">
+                        <h3>
+                            <%- JSON.stringify(patientCount) %>
+                        </h3>
+                        <p>Patients</p>
+                    </span>
+                </li>
+                <li>
+                    <iconify-icon icon="maki:doctor" width="50" height="50" class ='bx'></iconify-icon>
+                    <span class="info">
+                        <h3>
+                            xxx
+                        </h3>
+                        <p>Attend</p>
+                    </span>
+                </li>
+                <li>
+                    <iconify-icon icon="tabler:heart-rate-monitor" width="50" height="50" class ='bx'></iconify-icon>
+                    <span class="info">
+                        <h3>
+                            xxx
+                        </h3>
+                        <p>Pending</p>
+                    </span>
+                </li>
+            </ul>
+            <!-- End of Insights -->
+            <div class = 'Doctors-Crud'>
+                <button class = 'Doctors-Crud-list' id="addDoctorButton" style="background-color: rgb(187, 247, 208);">
+                Add Doctor
+                </button>
+                <button class = 'Doctors-Crud-list' id="removeDoctorButton" style="background-color: rgb(254, 205, 211);">
+                Remove Doctor
+                </button>
+            </div>
+            
+            <div class="video" id = doctorInfo>
+                
+            </div>
+
+            <script class="Update Doctor">
+                function updateDoctorTemplate() {
+                    const container = document.getElementById('doctorInfo');
+                    container.innerHTML = ''; 
+                    const doctors =  <%- JSON.stringify(doctors) %>;
+       
+                    let doctorTemplate = '';
+            
+                    // Ensure doctors is an array before attempting to iterate
+                    if (Array.isArray(doctors)) {
+                        doctors.forEach(doctor => {
+                            const doctorDOB = (doctor.DOB) ? new Date(doctor.DOB).toISOString().split('T')[0] : ''; // Change the doctor's DOB into correct form
+                            const doctorGender = doctor.Gender === 'M' ? 'Male' : 'Female'; // Convert short form to long form
+                            doctorTemplate += `
+                            <div class="video-div">
+                                <a href="/adminDoctors/${doctor.Staff_ID}">
+                                    <div class="videoandtime">
+                                        <div class="video-video"><img class="thumnails" src="/images/ava.jpg" ></div>
+                                    </div>
+                                </a>
+                                <div class="video-description">
+                                    <div class="video-description-child">
+                                        <div class="video-thumna ils">
+                                            <img class="logo-channel" src="/images/ava.jpg">
+                                        </div>
+                                    
+                                        <div class="video-info">
+                                            <p class="video-title">${doctor.Name}</p>
+                                            <p class="video-sub">ID: ${doctor.Staff_ID}</p>
+                                            <p class="video-sub">${doctor.Specialization_Name}</p>
+                                        </div>
+                                    </div>
+                                    <div class="video-crud">
+                                        <a> 
+                                            <button id="modifyDoctorButton${doctor.Staff_ID}" class="video-crud-button" style="background-color: rgb(187, 247, 208);">
+                                                Modify
+                                            </button>
+                                        </a>
+                                        <a>
+                                            <button id="removeDoctorButton${doctor.Staff_ID}" class="video-crud-button" style="background-color: rgb(254, 205, 211);">
+                                                Remove
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>`;
+                        });
+                    } else {
+                        console.error('Doctors data is not an array');
+                    }
+                    container.innerHTML = doctorTemplate;
+                }
+                updateDoctorTemplate();
+            </script>
+
+            <script>
+                    document.getElementById('doctorForm').addEventListener('submit', (event) => {
+                        event.preventDefault(); // Prevent the default form submission
+                        
+                        const name = document.getElementById('doctorName').value;
+                        const phone = document.getElementById('doctorPhone').value;
+
+                        if (name && phone) {
+                            const doctorData = { Name: name, Phone: phone };
+
+                            fetch('/adminDoctors', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify(doctorData),
+                            })
+                            .then((response) => {
+                                if (!response.ok) {
+                                    throw new Error('Failed to add doctor');
+                                }
+                                window.location.reload();
+                            })
+                            .catch((error) => {
+                                console.error('Error adding doctor:', error);
+                            });
+                        }
+                    });
+            </script>
+
+            <script>
+                document.getElementById('addDoctorButton').addEventListener('click', () => {
+                const popup = window.open('', 'Add Doctor', 'width=800, height=600, top=250, left=550');
+                const popupContent = `
+                    <html lang="en" dir="ltr">
+                    <head>
+                        <meta charset="UTF-8">
+                        <title> Make Appointment Health Care</title>
+                        <link rel="stylesheet" href="/css/makeAppointment.css">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    </head>
+                    <body>
+                        <div class="container">
+                            <div class="title"> 
+                                Add Doctor
+                            </div>
+                            <div class="content">
+                                <form id="doctorForm" action="/adminDoctors" method="post">
+                                    <div class="user-details">
+                                        <div class="input-box">
+                                            <span class="details">Name</span>
+                                            <input type="text" id="doctorNameInput" placeholder="Enter Name" required>
+                                        </div>
+                                        <div class="input-box">
+                                            <span class="details">Phone</span>
+                                            <input type="text" id="doctorPhoneInput" placeholder="Enter Phone" required>
+                                        </div>
+                                        <div class="input-box">
+                                            <span class="details">Address</span>
+                                            <input type="text" id="doctorAddressInput" placeholder="Enter Address" required>
+                                        </div>
+                                        <div class="input-box">
+                                            <span class="details">Specialization</span>
+                                            <select class="Select" name="Choose specialization" id="doctorSpecializationInput" required>
+                                                <option disabled selected>Please select specialization</option>
+                                                <% specializations.forEach(function(item) { %>
+                                                    <option value="<%= item.Specialization_ID %>"><%= item.Specialization_Name %></option>
+                                                <% }); %>
+                                            </select>
+                                        </div>
+                                        <div class="input-box">
+                                            <span class="details">Salary</span>
+                                            <input type="number" id="doctorSalaryInput" placeholder="Enter Salary" required>
+                                        </div>
+                                        <div class="input-box">
+                                            <span class="details">DOB</span>
+                                            <input type="date" id="doctorDOBInput" required>
+                                        </div>
+                                        <div class="gender-details">
+                                            <input type="radio" name="gender" id="dot-1">
+                                            <input type="radio" name="gender" id="dot-2">
+                                            <span class="gender-title">Gender</span>
+                                            <div class="category">
+                                            <label for="dot-1">
+                                            <span class="dot one"></span>
+                                            <span class="gender">Male</span>
+                                            </label>
+                                            <label for="dot-2">
+                                            <span class="dot two"></span>
+                                            <span class="gender">Female</span>
+                                            </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="button">
+                                        <input type="submit" value="Add Doctor">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </body>
+                    </html>
+                    `;
+                    popup.document.write(popupContent);
+
+                    popup.document.getElementById('doctorForm').addEventListener('submit', (event) => {
+                        event.preventDefault();
+                        
+                        const name = popup.document.getElementById('doctorNameInput').value;
+                        const phone = popup.document.getElementById('doctorPhoneInput').value;
+                        const specialization = popup.document.getElementById('doctorSpecializationInput').value;
+                        const salary = popup.document.getElementById('doctorSalaryInput').value;
+                        const address = popup.document.getElementById('doctorAddressInput').value;
+                        const dob = popup.document.getElementById('doctorDOBInput').value;
+                        const genderRadios = popup.document.getElementsByName('gender');
+                        let gender = '';
+
+                        genderRadios.forEach((radio) => {
+                            if (radio.checked) {
+                                // Set 'M' for Male and 'F' for Female
+                                gender = radio.id === 'dot-1' ? 'M' : 'F';
+                            }
+                        });
+
+                        if (name && phone) {
+                            const doctorData = { Name: name, Phone: phone, Specialization:specialization, Salary:salary, Address: address, Gender: gender, DOB: dob };
+
+                            fetch('/adminDoctors', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify(doctorData),
+                            })
+                            .then((response) => {
+                                if (!response.ok) {
+                                    throw new Error('Failed to add doctor');
+                                }
+                                popup.close();
+                                window.location.reload();
+                            })
+                            .catch((error) => {
+                                console.error('Error adding doctor:', error);
+                            });
+                        }
+                    });
+                });
+            </script>
+            
+            <script>
+                document.getElementById('removeDoctorButton').addEventListener('click', () => {
+                  const staffId = prompt('Enter doctor\'s staff ID');
+              
+                  if (staffId) {
+                    const doctorData = { Staff_Id: staffId }; // Fixed the key name to match your data structure
+              
+                    fetch('/adminDoctors', {
+                      method: 'DELETE', // Assuming you want to delete the doctor (use 'DELETE' method)
+                      headers: {
+                        'Content-Type': 'application/json',
+                      },
+                      body: JSON.stringify(doctorData),
+                    })
+                      .then((response) => {
+                        if (!response.ok) {
+                          throw new Error('Failed to remove doctor');
+                        }
+                        window.location.reload()
+                      })
+                      .catch((error) => {
+                        console.error('Error removing doctor:', error);
+                      });
+                  } else {
+                    alert('Doctor information is incomplete');
+                  }
+                });
+            </script>
+
+              <script>
+                function deleteDoctor(id) {
+                    const doctorData = { Staff_Id:id }
+                    fetch('/adminDoctors', {
+                      method: 'DELETE',
+                      headers: {
+                        'Content-Type': 'application/json',
+                      },
+                      body: JSON.stringify(doctorData),
+                    })
+                    .then((response) => {
+                        if (!response.ok) {
+                        throw new Error('Failed to remove doctor');
+                        }
+                        window.location.reload()
+                    })
+                    .catch((error) => {
+                        console.error('Error removing doctor:', error);
+                    });
+                };
+
+                function attachEventListenersToRemoveButtons() {
+                    const doctorButtons = document.querySelectorAll('[id^="removeDoctorButton"]');
+                    doctorButtons.forEach(button => {
+                        button.addEventListener('click', () => {
+                            const doctorId = button.id.replace('removeDoctorButton', ''); // Extract the doctor ID from the button ID
+                            const confirmDelete = confirm(`Are you sure you want to delete doctor with ID ${doctorId}?`);
+                            if (confirmDelete) {
+                                deleteDoctor(doctorId); // Call deleteDoctor function with the doctor's ID
+                            }
+                        });
+                    });
+                }          
+                window.addEventListener('load', attachEventListenersToRemoveButtons);          
+              </script>
+
+        </main>
+
+    </div>
+
+    <script src="js/adminScript.js"></script>
+</body>
+
+</html>
